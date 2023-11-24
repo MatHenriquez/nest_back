@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
-import { UserMySqlRepository } from './infraestructure/persistence/user.mysql.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './domain/models/user.entity';
-import { UserController } from './infraestructure/user-crud.controller';
+import { UserEntity } from './domain/entities/user.entity';
+import { UserController } from './controller/user.controller';
+import { UserMySqlRepository } from './infraestructure/persistence/user.mysql.repository';
+import { UserService } from './application/services/user.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [TypeOrmModule.forFeature([UserEntity])],
   controllers: [UserController],
-  providers: [UserMySqlRepository],
+  providers: [UserMySqlRepository, UserService],
 })
 export class UserModule {}
